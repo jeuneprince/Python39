@@ -27,6 +27,21 @@ def connecter():
         except Exception as es:
             messagebox.showinfo('Error', 'Une erreur est apparue ...')
 
+def acheter():
+
+        try:
+            con=pymysql.connect(host="localhost", user="root", password="mysql", database="marketnet")
+            cur=con.cursor()
+            result = 0
+            cur.execute("TRUNCATE TABLE commandes")
+            rows = cur.fetchall()
+            con.close()
+            
+        except Exception as es:
+            messagebox.showinfo('Error', 'Une erreur est apparue ...')
+        messagebox.showinfo('Achat', 'Achat effectué avec succes')
+        root.destroy()
+        import ClientMenuPrincipal
 
 
 def deconnexion():
@@ -80,6 +95,11 @@ deconnexion=Button(logo,text="Deconnexion",command=deconnexion, bg="black", fg="
 deconnexion.place(x=900, y=10)
 deconnexion.configure(image=img_dec)
 
+connexion=Button(logo,text="Confirmer",command=acheter, bg="green", fg="white", relief=FLAT, font=('arial',12), width = 20 )
+connexion.place(x=400, y=400)
+
+
+
 tree = ttk.Treeview(root, column=("c1", "c2"), show='headings')
 
 
@@ -98,7 +118,6 @@ tree.pack(pady=150)
 
 
 connecter()
-
 
 
 root.mainloop()
